@@ -10,8 +10,12 @@ const expect = chai.expect; //Expect module for chai
 chai.use(chaiHttp);
 
 //Get user route test that creates a new user, saves it, and then makes a request to the server in order to test the authentication.
+//Adding the removal of user in case the test is run multiple times.
 //Also tests whether or not a false positive would yield a 401 error as well.
 describe("GET /users", () => {
+  User.find({ fullName: "Tanuj Aswani" })
+    .remove()
+    .exec();
   it("returns authenticated user", done => {
     let user = new User({
       fullName: "Tanuj Aswani",
